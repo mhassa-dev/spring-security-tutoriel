@@ -19,16 +19,6 @@ import java.util.List;
 public class StudentController {
 
     /**
-     * Get all students
-     *
-     * @return students
-     */
-    @GetMapping(value = "all")
-    public List<Student> getAllStudents() {
-        return StudentData.getAll();
-    }
-
-    /**
      * Get student with the ID id
      *
      * @param id the id of student to get

@@ -12,8 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static mh.com.project.models.Role.ADMIN;
-import static mh.com.project.models.Role.STUDENT;
+import static mh.com.project.models.Role.*;
 
 /**
  * Created by mh on 19/08/2020.
@@ -32,9 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/api/**").hasRole(STUDENT.name())
+                .antMatchers("/api/v1/students/**").hasRole(STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -53,9 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails admin = User.builder()
                 .username("mhossa")
                 .password(passwordEncoder.encode("mhossa"))
-                .roles(ADMIN.name())
+                .roles(ADMIN.name()) // ROLE_ADMIN
                 .build();
 
-        return new InMemoryUserDetailsManager(student, admin);
+        UserDetails management = User.builder()
+                .username("mhissa")
+                .password(passwordEncoder.encode("mhissa"))
+                .roles(ADMIN_TRAINEE.name()) // ROLE_ADMIN_TRAINEE
+                .build();
+
+        return new InMemoryUserDetailsManager(student, admin, management);
     }
 }

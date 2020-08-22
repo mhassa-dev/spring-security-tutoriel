@@ -10,8 +10,9 @@ import static mh.com.project.models.Permission.*;
  * Created by mh on 21/08/2020.
  */
 public enum Role {
+    STUDENT(Sets.newHashSet(COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE)),
     ADMIN(Sets.newHashSet()),
-    STUDENT(Sets.newHashSet(COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE));
+    ADMIN_TRAINEE(Sets.newHashSet(COURSE_READ, STUDENT_READ));
 
     private final Set<Permission> permissions;
 
