@@ -15,7 +15,7 @@ import java.util.List;
  * Student Controller
  */
 @RestController
-@RequestMapping(value = "/students/")
+@RequestMapping(value = "/api/v1/students")
 public class StudentController {
 
     /**
