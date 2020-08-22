@@ -10,7 +10,7 @@ import java.util.List;
  * Created by mh on 22/08/2020.
  */
 @RestController
-@RequestMapping(value = "/api/management/v1/students")
+@RequestMapping(value = "/management/api/v1/students")
 public class StudentManagementController {
 
     @GetMapping
