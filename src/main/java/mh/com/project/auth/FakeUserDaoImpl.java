@@ -1,18 +1,27 @@
 package mh.com.project.auth;
 
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-import static mh.com.project.models.Role.STUDENT;
+import static mh.com.project.models.Role.*;
 
 /**
  * Created by mh on 23/08/2020.
  */
 @Repository("fake")
 public class FakeUserDaoImpl implements UserDao {
+
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public FakeUserDaoImpl(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public Optional<User> findByUsername(String username) {
@@ -25,21 +34,21 @@ public class FakeUserDaoImpl implements UserDao {
     private List<User> getUsers() {
         return Lists.newArrayList(
                 new User(STUDENT.getGrantedAuthorities(),
-                        "mhassa",
+                        passwordEncoder.encode("mhassa"),
                         "mhassa",
                         true,
                         true,
                         true,
                         true),
-                new User(STUDENT.getGrantedAuthorities(),
-                        "mhossa",
+                new User(ADMIN.getGrantedAuthorities(),
+                        passwordEncoder.encode("mhossa"),
                         "mhossa",
                         true,
                         true,
                         true,
                         true),
-                new User(STUDENT.getGrantedAuthorities(),
-                        "mhissa",
+                new User(ADMIN_TRAINEE.getGrantedAuthorities(),
+                        passwordEncoder.encode("mhissa"),
                         "mhissa",
                         true,
                         true,
